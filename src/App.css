@@ -46,3 +46,16 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+body {
+  background-image: url('./assets/background-sword.png');
+  background-repeat: no-repeat;
+  background-size: 1370px 720px;
+  color: #FFF;
+}
+
+@media (min-width: 1370px), (display-mode: fullscreen) {
+  body {
+    background-size: 100%;
+  }
+}

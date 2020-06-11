@@ -1,17 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 
 const Home = () => {
   return (
-    <div className="content">
+    <div className="page-home">
       <header>
-        <h1>Home - Guardian Blades</h1>
-        <h2>Protect the valley with the power of your blade</h2>
-        <a className="signup" href="/create-account">Sign Up</a>
+        <div className="logo-description">
+          <p>(LOGO)</p>
+          <h1>Protect the valley <br />
+           with the power of your blade.</h1>
+        </div>
+        
+        <Link className="signup" to="/create-account">Sign Up</Link>
       </header>
 
-      <a className="playButton" href="/client">Play</a>
+      <div className="buttonBox">
+        <Link to="/client">Play</Link>
+      </div>
     </div>
   );
 }
