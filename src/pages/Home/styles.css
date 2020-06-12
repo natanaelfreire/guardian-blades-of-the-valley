@@ -8,7 +8,7 @@
   margin-top: 50px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: top;
 }
 
 .page-home header h1 {
@@ -27,14 +27,59 @@
   color: rgb(210, 50, 50);
 }
 
-.buttonBox {
+.loginBox {
+  background-color: black;
+  width: 300px;
+  text-align: right;
+  padding-bottom: 70px;
+  margin-top: 50px;
+  border-radius: 2%;
+}
+
+.loginBox .loginButton {
+  color: #FFF;
+  text-decoration: none;
+  font-size: 18px;
+  border: none;
+  background-color: transparent;
+}
+
+.loginBox .loginButton:hover {
+  color: rgb(210, 50, 50);
+  cursor: pointer;
+}
+
+.loginBox form {
+  padding: 10px;
+  text-align: left;
+}
+
+.loginBox form input {
+  margin: 5px;
+  width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.loginBox form button {
+  margin: 5px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.loginBox form h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.playBox {
   vertical-align: bottom;
   display: flex;
   justify-content: right;
-  margin-top: 310px;
+  margin-top: 100px;
 }
 
-.buttonBox a {
+.playBox a {
   background-color: rgb(210, 50, 50);
   border: 2px solid rgb(210, 50, 50);
   text-decoration: none;
@@ -47,7 +92,7 @@
   border-radius: 2px;
 }
 
-.buttonBox a:hover {
+.playBox a:hover {
   background-color: #FFF;
   transition: 0.5s;
 }
