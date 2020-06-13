@@ -1,8 +1,17 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import './styles.css';
 import api from '../../services/api';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  token: string;
+}
 
 const Home = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -11,7 +20,22 @@ const Home = () => {
     password: '',
   });
 
-  useEffect(() => {}, []);
+  const [userData, setUserData] = useState<User>();
+
+  useEffect(() => {
+    const token = localStorage.getItem('gb-token') || undefined;
+
+    if (token !== undefined) {
+      axios.get<User>('http://192.168.1.6:3333/login', {
+        params: {
+          token
+        }
+      }).then(response => {
+        setUserData(response.data);
+        setIsLogged(true);
+      });
+    }
+  }, []); 
   
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -19,19 +43,35 @@ const Home = () => {
     setFormData({ ...formData, [name]: value });
   }
 
-  async function handleSubmit(event: FormEvent) {
+  async function handleSubmitLogin(event: FormEvent) {
     event.preventDefault();
 
     await api.post('login', formData).then(response => {
-      const authToken = response.data;
-
       if (response.status === 203) {
-        return alert(authToken.message);
+        return alert(response.data.message);
       } 
 
-      localStorage.setItem('gb-token', authToken);
+      const { id, name, email, password, token } = response.data;
+
+      setUserData({
+        id,
+        name,
+        email,
+        password,
+        token
+      });
+      
+      localStorage.setItem('gb-token', token);
+      setIsLogged(true);
       window.location.reload(false);
     });
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('gb-token');
+    setUserData(undefined);
+    setIsLogged(false);
+    window.location.reload(false);
   }
 
 
@@ -45,29 +85,45 @@ const Home = () => {
         </div>
         
         <div className="loginBox">
-          <span> <button className="loginButton">Login</button> | <Link to="/create-account">Sign Up</Link></span>
+          <span>
+            {
+              isLogged ? 
+                ( <button className="loginButton" onClick={handleLogout}>Logout</button> ) :
+                ( <><button
+                      className="loginButton"
+                    >
+                      Login
+                    </button>
+                      | 
+                    <Link to="/create-account"> Sign Up</Link> </> )
+            }
+          </span>
 
-          <form onSubmit={handleSubmit}>
-            <input type="text"
-              placeholder="Nickname"
-              name="name"
-              id="name"
-              onChange={handleInputChange}
-            />
-            <input type="password" 
-              placeholder="Password"
-              name="password"
-              id="password"
-              onChange={handleInputChange}
-            />
-            <button type="submit">Enter</button>
+          <form onSubmit={handleSubmitLogin} className={isLogged ? 'hide' : 'loginForm'}>
+            <fieldset>
+              <input type="text"
+                placeholder="Nickname"
+                name="name"
+                id="name"
+                onChange={handleInputChange}
+              />
+              <input type="password" 
+                placeholder="Password"
+                name="password"
+                id="password"
+                onChange={handleInputChange}
+              />
+              <button type="submit">Enter</button>
+            </fieldset>
+            
             <h2>Don't have account?</h2>
-            <Link className="signup" to="/create-account">Sign Up</Link>
+            <Link to="/create-account">Sign Up</Link>
           </form>
         </div>
       </header>
 
       <div className="playBox">
+        <div className="userName">Hello, {userData ? userData.name : 'visitor'}.</div>
         <Link to="/client">Play</Link>
       </div>
     </div>

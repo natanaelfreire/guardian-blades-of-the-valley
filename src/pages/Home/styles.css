@@ -28,7 +28,17 @@
 }
 
 .loginBox {
-  background-color: black;
+  background-color: rgba(90, 83, 83, 0.151);
+  width: 300px;
+  text-align: right;
+  padding-bottom: 70px;
+  margin-top: 50px;
+  border-radius: 2%;
+  border: 1px solid rgba(255, 255, 255, 0.322);
+}
+
+.loginBoxHide {
+  background-color: transparent;
   width: 300px;
   text-align: right;
   padding-bottom: 70px;
@@ -36,7 +46,7 @@
   border-radius: 2%;
 }
 
-.loginBox .loginButton {
+.loginButton {
   color: #FFF;
   text-decoration: none;
   font-size: 18px;
@@ -44,30 +54,30 @@
   background-color: transparent;
 }
 
-.loginBox .loginButton:hover {
+.loginButton:hover {
   color: rgb(210, 50, 50);
   cursor: pointer;
 }
 
-.loginBox form {
+.loginForm {
   padding: 10px;
   text-align: left;
 }
 
-.loginBox form input {
+.loginForm input {
   margin: 5px;
   width: 150px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.loginBox form button {
+.loginForm button {
   margin: 5px;
   margin-top: 10px;
   padding: 5px;
 }
 
-.loginBox form h2 {
+.loginForm h2 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -95,4 +105,18 @@
 .playBox a:hover {
   background-color: #FFF;
   transition: 0.5s;
+}
+
+.userName {
+  margin-top: 20px;
+  margin-right: 35px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #FFF;
+  text-shadow: 2px 2px 0px black; 
+}
+
+.hide {
+  visibility: hidden;
+  margin-bottom: 55px;
 }
