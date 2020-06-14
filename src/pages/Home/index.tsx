@@ -26,7 +26,7 @@ const Home = () => {
     const token = localStorage.getItem('gb-token') || undefined;
 
     if (token !== undefined) {
-      axios.get<User>('http://192.168.1.6:3333/login', {
+      axios.get<User>('http://192.168.1.6:3333/users', {
         params: {
           token
         }
@@ -49,19 +49,9 @@ const Home = () => {
     await api.post('login', formData).then(response => {
       if (response.status === 203) {
         return alert(response.data.message);
-      } 
+      }
 
-      const { id, name, email, password, token } = response.data;
-
-      setUserData({
-        id,
-        name,
-        email,
-        password,
-        token
-      });
-      
-      localStorage.setItem('gb-token', token);
+      localStorage.setItem('gb-token', response.data.token);
       setIsLogged(true);
       window.location.reload(false);
     });
