@@ -1,19 +1,19 @@
 import React from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 
 import Home from './pages/Home';
 import CreateAccount from './pages/CreateAccount';
 import Client from './pages/Client';
 
-import PrivateRoute from './components/PrivateRoute';
+import isAuthenticated from './auth';
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route component={Home} path='/' exact />
-        <Route component={CreateAccount} path='/create-account' />
-        <PrivateRoute component={Client} path='/client' />
+        <Route path='/' exact component={Home} />
+        <Route path='/create-account' component={CreateAccount} />
+        <Route path='/client' render={() => (isAuthenticated() ? <Client /> : <Redirect to="/" />)} />
       </Switch>
     </BrowserRouter>
   );

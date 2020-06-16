@@ -8,6 +8,7 @@ import api from '../../services/api';
 interface User {
   id: number;
   name: string;
+  nameInGame: string;
   email: string;
   password: string;
   token: string;
@@ -31,8 +32,10 @@ const Home = () => {
           token
         }
       }).then(response => {
-        setUserData(response.data);
-        setIsLogged(true);
+        if (response.status === 200) {
+          setUserData(response.data);
+          setIsLogged(true);
+        }
       });
     }
   }, []); 

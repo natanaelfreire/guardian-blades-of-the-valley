@@ -1,21 +1,15 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 
-const isAuthenticated = () => {
-  const token = localStorage.getItem('gb-token') || undefined;
-
-  return token ? true : false;
-}
+import Client from '../../pages/Client';
 
 interface Props {
-  component: () => JSX.Element;
+  component: Client; 
   path: string;
+  render: () => void;
 };
 
 const PrivateRoute = (props: Props) => {
-   return (isAuthenticated()) ? 
-    (<Route component={props.component} path={props.path} />) :
-    (<Redirect to="/" />)
+   return <></>
 }
 
 export default PrivateRoute;
